@@ -84,5 +84,17 @@ WHERE emp.ENAME = 'ALLEN';
 /*10. Liste des employés avec nom du département, nom, job, salaire classés par noms de départements et 
 par salaires décroissants.*/
 
+SELECT dept.DNAME AS "Nom de Departement",
+			ENAME AS Nom,
+			JOB AS Poste,
+			SAL AS "Salaire mensuel"
+FROM emp NATURAL JOIN dept
+ORDER BY dept.DNAME ASC;
+			
+			
+
+
  
 /*11. Liste des employés vendeur*/
+
+
