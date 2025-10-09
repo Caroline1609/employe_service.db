@@ -92,9 +92,36 @@ FROM emp NATURAL JOIN dept
 ORDER BY dept.DNAME ASC;
 			
 			
+/* 11. Liste des employés vendeurs (SALESMAN) avec affichage de nom, salaire, commissions, salaire + commissions */
 
 
- 
-/*11. Liste des employés vendeur*/
+/* 12. Liste des employés du département 20: nom, job, date d'embauche sous forme 'VEN 28 FEV 1997' */
+
+/* 13. Donner le salaire le plus élevé par département */
+
+/* 14. Donner département par département masse salariale, nombre d'employés, salaire moyen par type d'emploi. */
+
+/* 15. Même question mais on se limite aux sous-ensembles d'au moins 2 employés */
+
+/* 16. Liste des employés (Nom, département, salaire) de même emploi que JONES */
+
+/* 17. Liste des employés (nom, salaire) dont le salaire est supérieur à la moyenne globale des salaires */
+
+/* 18. Création d'une table PROJET avec comme colonnes numéro de projet (3 chiffres), nom de projet (5 caractères), budget. 
+Entrez les valeurs suivantes:
+101, ALPHA, 96000
+102, BETA, 82000
+103, GAMMA, 15000 */
 
 
+
+/* 19. Ajouter l'attribut numéro de projet à la table EMP et affecter tous les vendeurs du département 30 au projet 101, 
+et les autres au projet 102 */
+
+/* 20. Créer une vue comportant tous les employés avec nom, job, nom de département et nom de projet */
+
+
+/* 21. À l'aide de la vue créée précédemment, lister tous les employés avec nom, job, nom de département et nom de projet 
+triés sur nom de département et nom de projet */
+
+/* 22. Donner le nom du projet associé à chaque manager */
