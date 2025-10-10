@@ -94,12 +94,52 @@ ORDER BY dept.DNAME ASC;
 			
 /* 11. Liste des employés vendeurs (SALESMAN) avec affichage de nom, salaire, commissions, salaire + commissions */
 
+SELECT ENAME AS Nom,
+       SAL AS Salaire,
+       COMM AS Commission,
+       (SAL + IFNULL(COMM, 0)) AS Salaire_total /* remplace la commission NULL (absence de commission) par 0. */
+FROM emp
+WHERE JOB = 'SALESMAN';
+
+
 
 /* 12. Liste des employés du département 20: nom, job, date d'embauche sous forme 'VEN 28 FEV 1997' */
 
+SELECT ENAME AS Nom,
+       JOB AS Poste,
+       DATE_FORMAT(HIREDATE, '%a %d %b %Y') AS Date_Embauche
+FROM emp
+WHERE DEPTNO = 20;
+
+
 /* 13. Donner le salaire le plus élevé par département */
 
+SELECT DEPTNO, MAX(SAL) AS Salaire_max
+FROM emp
+GROUP BY DEPTNO;
+
+
 /* 14. Donner département par département masse salariale, nombre d'employés, salaire moyen par type d'emploi. */
+
+SELECT DEPTNO AS Departement,
+       JOB AS "Type emploi",
+       SUM(SAL + IFNULL(COMM, 0)) AS Masse_salariale_totale
+    	COUNT(emp.EMPNO) AS Nombre_employes,
+    	JOB AS Type_emploi,
+    	AVG(SAL), 2) AS Salaire_moyen
+    	FROM emp
+INNER JOIN dept ON emp.DEPTNO = dept.DEPTNO
+GROUP BY dept.DNAME, emp.JOB
+ORDER BY dept.DNAME ASC, emp.JOB ASC;
+
+		
+    	
+    	
+       
+       
+       
+       
+
 
 /* 15. Même question mais on se limite aux sous-ensembles d'au moins 2 employés */
 
