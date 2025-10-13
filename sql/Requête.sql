@@ -114,44 +114,92 @@ WHERE DEPTNO = 20;
 
 /* 13. Donner le salaire le plus élevé par département */
 
-SELECT DEPTNO, MAX(SAL) AS Salaire_max
+SELECT 
+		DEPTNO,
+		MAX(SAL) AS Salaire_max
 FROM emp
 GROUP BY DEPTNO;
 
 
 /* 14. Donner département par département masse salariale, nombre d'employés, salaire moyen par type d'emploi. */
 
-SELECT DEPTNO AS Departement,
-       JOB AS "Type emploi",
-       SUM(SAL + IFNULL(COMM, 0)) AS Masse_salariale_totale
-    	COUNT(emp.EMPNO) AS Nombre_employes,
-    	JOB AS Type_emploi,
-    	AVG(SAL), 2) AS Salaire_moyen
-    	FROM emp
+SELECT 
+    dept.DNAME AS Departement,
+    emp.JOB AS Type_emploi,
+    SUM(SAL + IFNULL(COMM, 0)) AS Masse_salariale_totale,
+    COUNT(emp.EMPNO) AS Nombre_employes,
+    ROUND(AVG(SAL), 2) AS Salaire_moyen
+FROM emp
 INNER JOIN dept ON emp.DEPTNO = dept.DEPTNO
 GROUP BY dept.DNAME, emp.JOB
-ORDER BY dept.DNAME ASC, emp.JOB ASC;
 
-		
-    	
-    	
-       
-       
-       
-       
+
 
 
 /* 15. Même question mais on se limite aux sous-ensembles d'au moins 2 employés */
 
+SELECT 
+    dept.DNAME AS Departement,
+    emp.JOB AS Type_emploi,
+    SUM(SAL + IFNULL(COMM, 0)) AS Masse_salariale_totale,
+    COUNT(emp.EMPNO) AS Nombre_employes,
+    ROUND(AVG(SAL), 2) AS Salaire_moyen
+FROM emp
+INNER JOIN dept ON emp.DEPTNO = dept.DEPTNO
+GROUP BY dept.DNAME, emp.JOB
+HAVING COUNT(emp.EMPNO) >= 2;
+
+
 /* 16. Liste des employés (Nom, département, salaire) de même emploi que JONES */
 
+SELECT 
+    ENAME AS Nom,
+    DEPTNO AS Departement,
+    SAL AS Salaire
+FROM emp
+WHERE JOB = (
+    SELECT JOB
+    FROM emp
+    WHERE ENAME = 'JONES'
+);
+
+
 /* 17. Liste des employés (nom, salaire) dont le salaire est supérieur à la moyenne globale des salaires */
+
+SELECT 
+		ENAME AS Nom,
+		SAL AS Salaire
+FROM emp
+WHERE SAL > (
+	SELECT AVG(SAL)
+	FROM emp
+);
+
 
 /* 18. Création d'une table PROJET avec comme colonnes numéro de projet (3 chiffres), nom de projet (5 caractères), budget. 
 Entrez les valeurs suivantes:
 101, ALPHA, 96000
 102, BETA, 82000
 103, GAMMA, 15000 */
+
+DROP TABLE projet;
+
+
+CREATE TABLE projet (
+    NUM_PROJ INT NOT NULL PRIMARY KEY,
+    NOM_PROJ CHAR(5) NOT NULL,
+    BUDGET DECIMAL(10,2) NOT NULL
+);
+
+
+INSERT INTO projet (NUM_PROJ, NOM_PROJ, BUDGET)
+VALUES
+	(101, 'ALPHA', 96000),
+	(102, 'BETA', 82000),
+	(103, 'GAMMA', 15000);
+
+
+
 
 
 
