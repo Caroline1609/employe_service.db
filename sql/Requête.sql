@@ -182,8 +182,7 @@ Entrez les valeurs suivantes:
 102, BETA, 82000
 103, GAMMA, 15000 */
 
-DROP TABLE projet;
-
+DROP TABLE if EXISTS projet;
 
 CREATE TABLE projet (
     NUM_PROJ INT NOT NULL PRIMARY KEY,
@@ -200,11 +199,14 @@ VALUES
 
 
 
-
-
-
 /* 19. Ajouter l'attribut numéro de projet à la table EMP et affecter tous les vendeurs du département 30 au projet 101, 
 et les autres au projet 102 */
+
+ALTER TABLE emp ADD NUM_PROJET INT;
+
+UPDATE emp
+SET NUM_PROJET = IF(JOB = 'SALESMAN' AND DEPTNO = 30, 101, 102);
+
 
 /* 20. Créer une vue comportant tous les employés avec nom, job, nom de département et nom de projet */
 
