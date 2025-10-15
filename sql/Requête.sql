@@ -290,17 +290,45 @@ WHERE COMM IS NOT NULL
   AND COMM <> 0;
 
 
-/* 4. Afficher la liste des noms, numéros de département, jobs et date d'embauche triés par Numero de 
-Département et JOB les derniers embauches d'abord. */
-
-
-
-
-
+/* 4. Afficher la liste des noms, numéros de département, jobs et date d'embauche triés par numéro de 
+département et JOB, les derniers embauchés d'abord */
+SELECT
+    emp.ENAME AS "Nom de l'employé",
+    emp.JOB AS "Job",
+    emp.HIREDATE AS "Date Embauche",
+    emp.DEPTNO AS "Numéro de département"
+FROM emp
+ORDER BY
+emp.DEPTNO ASC,   
+emp.JOB ASC,      
+emp.HIREDATE DESC;
+		
 /* 5. Afficher la liste des employés travaillant à DALLAS */
 
-/* 6. Afficher les noms et dates d'embauche des employés embauchés avant leur manager, avec le nom et 
-date d'embauche du manager. */
+SELECT
+		emp.ENAME AS "Nom de l'employé",
+    	emp.JOB AS "Job",
+    	dept.LOC AS "Localisation"
+FROM emp
+INNER JOIN dept ON emp.DEPTNO = dept.DEPTNO
+WHERE dept.LOC = 'DALLAS';
+
+
+/* 6. Afficher les noms et dates d'embauche des employés embauchés avant leur manager,
+      avec le nom et date d'embauche du manager */
+SELECT
+    e.ENAME AS "Nom de l'employé",
+    e.HIREDATE AS "Date embauche de l'employé",
+    m.ENAME AS "Nom du manager",
+    m.HIREDATE AS "Date embauche du manager"
+FROM emp e
+INNER JOIN emp m 
+    ON e.MGR = m.EMPNO       
+WHERE e.HIREDATE < m.HIREDATE
+   
+
+		
+
 
 /* 7. Lister les numéros des employés n'ayant pas de subordonné. */
 
