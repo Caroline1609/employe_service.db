@@ -202,16 +202,140 @@ VALUES
 /* 19. Ajouter l'attribut numéro de projet à la table EMP et affecter tous les vendeurs du département 30 au projet 101, 
 et les autres au projet 102 */
 
-ALTER TABLE emp ADD NUM_PROJET INT;
+
+ALTER TABLE emp
+ADD NUM_PROJET INT;
+
+ALTER TABLE emp
+ADD CONSTRAINT FK_emp_projet FOREIGN KEY (NUM_PROJET) REFERENCES projet(NUM_PROJ);
 
 UPDATE emp
-SET NUM_PROJET = IF(JOB = 'SALESMAN' AND DEPTNO = 30, 101, 102);
+SET NUM_PROJET = 101
+WHERE JOB = 'SALESMAN' AND DEPTNO = 30;
+
+UPDATE emp
+SET NUM_PROJET = 102
+WHERE NUM_PROJET IS NULL;
 
 
 /* 20. Créer une vue comportant tous les employés avec nom, job, nom de département et nom de projet */
+
+SELECT
+    emp.ENAME AS "Nom des employés",
+    emp.JOB AS Poste,
+    dept.DNAME AS "Nom du département",
+    projet.NOM_PROJ AS "Nom du projet"
+FROM emp
+INNER JOIN dept ON emp.DEPTNO = dept.DEPTNO
+INNER JOIN projet ON emp.NUM_PROJET = projet.NUM_PROJ;
 
 
 /* 21. À l'aide de la vue créée précédemment, lister tous les employés avec nom, job, nom de département et nom de projet 
 triés sur nom de département et nom de projet */
 
+SELECT
+    emp.ENAME AS "Nom des employés",
+    emp.JOB AS Poste,
+    dept.DNAME AS "Nom du département",
+    projet.NOM_PROJ AS "Nom du projet"
+FROM emp
+INNER JOIN dept ON emp.DEPTNO = dept.DEPTNO
+INNER JOIN projet ON emp.NUM_PROJET = projet.NUM_PROJ;
+ORDER BY NOM_DEPT, NOM_PROJET; 
+
+
+
 /* 22. Donner le nom du projet associé à chaque manager */
+
+SELECT
+		projet.NOM_PROJ AS "Nom du projet",
+		emp.ENAME AS "Nom du manager"
+FROM projet
+INNER JOIN emp ON projet.NUM_PROJ = emp.NUM_PROJET
+WHERE JOB = 'MANAGER';
+
+
+/*Deuxième partie*/
+
+/* 1. Afficher la liste des managers des départements 20 et 30 */
+
+SELECT 
+		emp.ENAME AS "nom de l'employer",
+		emp.JOB AS Poste,
+		emp.DEPTNO AS "numéro du département"
+FROM emp
+WHERE JOB = 'MANAGER' 
+AND DEPTNO IN (20, 30);
+	
+		
+			
+/* 2. Afficher la liste des employés qui ne sont pas manager et qui ont été embauchés en 81 */
+
+SELECT 
+    ENAME AS "Nom de l'employé",
+    JOB AS "Poste",
+    HIREDATE AS "Date d'embauche"
+FROM emp
+WHERE JOB <> 'MANAGER'
+  AND YEAR(HIREDATE) = 1981;
+
+
+/* 3. Afficher la liste des employés ayant une commission */
+
+SELECT 
+    ENAME AS "Nom de l'employé",
+    COMM AS "Commission"
+FROM emp
+WHERE COMM IS NOT NULL 
+  AND COMM <> 0;
+
+
+/* 4. Afficher la liste des noms, numéros de département, jobs et date d'embauche triés par Numero de 
+Département et JOB les derniers embauches d'abord. */
+
+
+
+
+
+/* 5. Afficher la liste des employés travaillant à DALLAS */
+
+/* 6. Afficher les noms et dates d'embauche des employés embauchés avant leur manager, avec le nom et 
+date d'embauche du manager. */
+
+/* 7. Lister les numéros des employés n'ayant pas de subordonné. */
+
+/* 8. Afficher les noms et dates d'embauche des employés embauchés avant BLAKE. */
+
+/* 9. Afficher les employés embauchés le même jour que FORD. */
+
+/* 10. Lister les employés ayant le même manager que CLARK. */
+
+/* 11. Lister les employés ayant même job et même manager que TURNER. */
+
+/* 12. Lister les employés du département RESEARCH embauchés le même jour que quelqu'un du 
+département SALES */
+
+/* 13. Lister le nom des employés et également le nom du jour de la semaine correspondant à leur date 
+d'embauche. */
+
+/* 14. Donner, pour chaque employé, le nombre de mois qui s'est écoulé entre leur date d'embauche et la 
+date actuelle. */
+
+/* 15. Afficher la liste des employés ayant un M et un A dans leur nom. */
+
+/* 16. Afficher la liste des employés ayant deux 'A' dans leur nom. */
+
+/* 17. Afficher les employés embauchés avant tous les employés du département 10. */
+
+/* 18. Sélectionner le métier où le salaire moyen est le plus faible. */
+
+/* 19. Sélectionner le département ayant le plus d'employés. */
+
+/* 20. Donner la répartition en pourcentage du nombre d'employés par département selon le modèle ci-dessous :
+Département   Répartition en % 
+-----------   ----------------
+10            21.43 
+20            35.71 
+30            42.86 */
+
+
