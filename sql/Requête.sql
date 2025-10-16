@@ -445,7 +445,6 @@ FROM emp
 WHERE ENAME LIKE '%A%A%';
 
 
-/* 17. Afficher les employés embauchés avant tous les employés du département 10. */
 
 /* 17. Afficher les employés embauchés avant tous les employés du département 10. */
 SELECT 
@@ -490,4 +489,10 @@ Département   Répartition en %
 20            35.71 
 30            42.86 */
 
+SELECT
+    e.DEPTNO AS "Département",
+    ROUND((COUNT(*) * 100.0 /(SELECT COUNT(*) FROM emp)), 2) AS "Répartition en %"
+FROM emp e
+GROUP BY e.DEPTNO
+ORDER BY e.DEPTNO;
 
