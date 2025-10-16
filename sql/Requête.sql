@@ -429,13 +429,62 @@ FROM emp;
 
 /* 15. Afficher la liste des employés ayant un M et un A dans leur nom. */
 
+/* 15. Afficher la liste des employés ayant un M et un A dans leur nom. */
+SELECT 
+    ENAME AS "Nom de l'employé"
+FROM emp
+WHERE ENAME LIKE '%M%' 
+  AND ENAME LIKE '%A%';
+
+
 /* 16. Afficher la liste des employés ayant deux 'A' dans leur nom. */
+
+SELECT 
+    ENAME AS "Nom de l'employé"
+FROM emp
+WHERE ENAME LIKE '%A%A%';
+
 
 /* 17. Afficher les employés embauchés avant tous les employés du département 10. */
 
+/* 17. Afficher les employés embauchés avant tous les employés du département 10. */
+SELECT 
+    ENAME AS "Nom de l'employé",
+    HIREDATE AS "Date d'embauche",
+    DEPTNO AS "Numéro de département"
+FROM emp
+WHERE HIREDATE < (
+    SELECT MIN(HIREDATE)
+    FROM emp
+    WHERE DEPTNO = 10
+);
+
+
 /* 18. Sélectionner le métier où le salaire moyen est le plus faible. */
+SELECT 
+    JOB AS "Métier",
+    AVG(SAL) AS "Salaire moyen"
+FROM emp
+GROUP BY JOB
+ORDER BY AVG(SAL) ASC
+LIMIT 1;
+
+
+
 
 /* 19. Sélectionner le département ayant le plus d'employés. */
+
+SELECT
+    DEPTNO AS "Numéro de département",
+    COUNT(*) AS "Nombre d'employés"
+FROM emp
+GROUP BY DEPTNO
+ORDER BY COUNT(*) DESC
+LIMIT 1;
+
+
+
+
 
 /* 20. Donner la répartition en pourcentage du nombre d'employés par département selon le modèle ci-dessous :
 Département   Répartition en % 
