@@ -476,14 +476,11 @@ LIMIT 1;
 
 SELECT
     DEPTNO AS "Numéro de département",
-    COUNT(*) AS "Nombre d'employés"
+    COUNT(ENAME) AS "Nombre d'employés"
 FROM emp
 GROUP BY DEPTNO
 ORDER BY COUNT(*) DESC
 LIMIT 1;
-
-
-
 
 
 /* 20. Donner la répartition en pourcentage du nombre d'employés par département selon le modèle ci-dessous :
