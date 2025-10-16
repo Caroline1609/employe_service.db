@@ -385,18 +385,47 @@ AND MGR =
 		FROM emp
 		WHERE ENAME = 'TURNER'
 )
-AND ENAME <> 'TURNER'
+AND ENAME <> 'TURNER';
 		
 
 
 /* 12. Lister les employés du département RESEARCH embauchés le même jour que quelqu'un du 
 département SALES */
 
+SELECT *
+FROM emp e
+JOIN dept d ON e.DEPTNO = d.DEPTNO /*Jointure entre e (employer) et d (departement) */
+WHERE d.DNAME = 'RESEARCH'
+AND e.HIREDATE IN (
+     SELECT e2.HIREDATE
+     FROM emp e2
+     JOIN dept d2 ON e2.DEPTNO = d2.DEPTNO
+     WHERE d2.DNAME = 'SALES'
+);
+
 /* 13. Lister le nom des employés et également le nom du jour de la semaine correspondant à leur date 
 d'embauche. */
+SET @lc_time_names:='fr_FR';
+
+SELECT @lc_time_names;
+
+SELECT
+ENAME,
+DATE_FORMAT(HIREDATE, '%W')
+FROM emp;
+
 
 /* 14. Donner, pour chaque employé, le nombre de mois qui s'est écoulé entre leur date d'embauche et la 
 date actuelle. */
+
+/* 14. Donner, pour chaque employé, le nombre de mois écoulés depuis leur embauche */
+SELECT 
+    ENAME AS "Nom de l'employé",
+    HIREDATE AS "Date d'embauche",
+    TIMESTAMPDIFF(MONTH, HIREDATE, NOW()) AS "Mois depuis embauche"
+FROM emp;
+
+
 
 /* 15. Afficher la liste des employés ayant un M et un A dans leur nom. */
 
