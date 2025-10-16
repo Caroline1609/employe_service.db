@@ -418,16 +418,11 @@ FROM emp;
 /* 14. Donner, pour chaque employé, le nombre de mois qui s'est écoulé entre leur date d'embauche et la 
 date actuelle. */
 
-/* 14. Donner, pour chaque employé, le nombre de mois écoulés depuis leur embauche */
 SELECT 
     ENAME AS "Nom de l'employé",
     HIREDATE AS "Date d'embauche",
     TIMESTAMPDIFF(MONTH, HIREDATE, NOW()) AS "Mois depuis embauche"
 FROM emp;
-
-
-
-/* 15. Afficher la liste des employés ayant un M et un A dans leur nom. */
 
 /* 15. Afficher la liste des employés ayant un M et un A dans leur nom. */
 SELECT 
@@ -468,9 +463,6 @@ GROUP BY JOB
 ORDER BY AVG(SAL) ASC
 LIMIT 1;
 
-
-
-
 /* 19. Sélectionner le département ayant le plus d'employés. */
 
 SELECT
@@ -490,9 +482,9 @@ Département   Répartition en %
 30            42.86 */
 
 SELECT
-    e.DEPTNO AS "Département",
+    DEPTNO AS "Département",
     ROUND((COUNT(*) * 100.0 /(SELECT COUNT(*) FROM emp)), 2) AS "Répartition en %"
-FROM emp e
-GROUP BY e.DEPTNO
-ORDER BY e.DEPTNO;
+FROM emp
+GROUP BY DEPTNO
+ORDER BY DEPTNO;
 
