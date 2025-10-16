@@ -324,21 +324,70 @@ SELECT
 FROM emp e
 INNER JOIN emp m 
     ON e.MGR = m.EMPNO       
-WHERE e.HIREDATE < m.HIREDATE
-   
-
-		
+WHERE e.HIREDATE < m.HIREDATE;	
 
 
 /* 7. Lister les numéros des employés n'ayant pas de subordonné. */
 
+SELECT 
+    e.EMPNO AS "Numéro de l'employé",
+    e.ENAME AS "Nom de l'employé"
+FROM emp e                                
+LEFT JOIN emp m ON e.EMPNO = m.MGR
+                                       
+WHERE m.EMPNO IS NULL;
+
+
 /* 8. Afficher les noms et dates d'embauche des employés embauchés avant BLAKE. */
+
+SELECT
+		e1.ENAME,
+		e1.HIREDATE
+FROM emp e1
+INNER JOIN emp e2 ON e2.ENAME = 'BLAKE'
+WHERE e1.HIREDATE < e2.HIREDATE;
+
 
 /* 9. Afficher les employés embauchés le même jour que FORD. */
 
-/* 10. Lister les employés ayant le même manager que CLARK. */
+SELECT
+		e1.ENAME,
+		e1.HIREDATE
+FROM emp e1
+INNER JOIN emp e2 ON e2.ENAME = 'FORD'
+WHERE e1.HIREDATE = e2.HIREDATE;
+
+/* 10. Lister les employés ayant le SUPERIEUR DE CLARK. */
+
+SELECT *
+FROM emp
+WHERE MGR = 
+(SELECT MGR
+FROM emp
+WHERE ENAME='CLARK')
+AND ENAME <> 'CLARK';
+
+
 
 /* 11. Lister les employés ayant même job et même manager que TURNER. */
+
+SELECT *
+FROM emp
+WHERE JOB = 
+(SELECT
+		JOB
+		FROM emp
+		WHERE ENAME = 'TURNER'
+)
+AND MGR =
+(SELECT 
+		MGR 
+		FROM emp
+		WHERE ENAME = 'TURNER'
+)
+AND ENAME <> 'TURNER'
+		
+
 
 /* 12. Lister les employés du département RESEARCH embauchés le même jour que quelqu'un du 
 département SALES */
