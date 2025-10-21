@@ -131,7 +131,7 @@ SELECT
     ROUND(AVG(SAL), 2) AS Salaire_moyen
 FROM emp
 INNER JOIN dept ON emp.DEPTNO = dept.DEPTNO
-GROUP BY dept.DNAME, emp.JOB
+GROUP BY dept.DNAME, emp.JOB;
 
 
 
